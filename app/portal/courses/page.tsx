@@ -96,7 +96,6 @@ export default async function CoursesPage() {
 }
 
 // Client Components
-import { useState, useTransition } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
@@ -122,9 +121,6 @@ function CreateCourseDialog() {
   const [open, setOpen] = useState(false)
   const [pending, start] = useTransition()
   const router = useRouter()
-  const [title, setTitle] = useState('')
-  const [desc, setDesc] = useState('')
-  const [mandatory, setMandatory] = useState(false)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
