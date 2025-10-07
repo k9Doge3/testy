@@ -1,12 +1,22 @@
-"use client";
-import { useState, useTransition } from 'react';
+'use client'; // <-- Add this at the very top
+import { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
-function EnrollButton({ courseId }: { courseId: string }) {
-  // Your client-side logic here
+export default function EnrollButton({ courseId }: { courseId: string }) {
+  const [pending, start] = useTransition();
+  const router = useRouter();
+  
+  const handleClick = () => {
+    start(async () => {
+      const res = await fetch(`/api/hrm/courses/${courseId}/enroll`, { method: 'POST' });
+      if (res.ok) router.refresh();
+    });
+  };
+
+  return (
+    <Button size="sm" disabled={pending} onClick={handleClick}>
+      Enroll
+    </Button>
+  );
 }
-
-export default EnrollButton;
